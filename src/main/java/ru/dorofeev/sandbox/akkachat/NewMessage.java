@@ -1,10 +1,11 @@
+package ru.dorofeev.sandbox.akkachat;
+
 import akka.actor.ActorRef;
 
 public class NewMessage {
 
-	public final ActorRef sender;
-	public final String message;
-
+	final ActorRef sender;
+	private final String message;
 
 	public NewMessage(ActorRef sender, String message) {
 		this.sender = sender;
@@ -18,8 +19,7 @@ public class NewMessage {
 
 		NewMessage that = (NewMessage) o;
 
-		if (!sender.equals(that.sender)) return false;
-		return message.equals(that.message);
+		return sender.equals(that.sender) && message.equals(that.message);
 
 	}
 
