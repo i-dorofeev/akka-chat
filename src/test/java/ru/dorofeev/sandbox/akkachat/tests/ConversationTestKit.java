@@ -12,6 +12,9 @@ import java.util.Map;
 
 import static akka.actor.Props.create;
 
+/**
+ * Provides domain-level API for testing conversations.
+ */
 class ConversationTestKit extends JavaTestKit {
 
 	private final Map<String, ActorRef> users = new HashMap<>();
@@ -53,13 +56,13 @@ class ConversationTestKit extends JavaTestKit {
 
 	private JavaTestKit createUserTestListener(ActorRef user) {
 		JavaTestKit user1Listener = new JavaTestKit(getSystem());
-		user.tell(new UserActor.InAddNewListener(user1Listener.getRef()), getRef());
+		user.tell(new UserActor.AddListenerCmd(user1Listener.getRef()), getRef());
 		expectMsgEquals(timeout, "listener added");
 		return user1Listener;
 	}
 
 	private void addUserToConversation(ActorRef conversation, ActorRef user) {
-		conversation.tell(new ConversationActor.InAddUser(user), getRef());
+		conversation.tell(new ConversationActor.AddUserCmd(user), getRef());
 		expectMsgEquals(timeout, "user added");
 	}
 }

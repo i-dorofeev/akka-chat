@@ -3,7 +3,6 @@ package ru.dorofeev.sandbox.akkachat.tests;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import org.junit.Test;
-import ru.dorofeev.sandbox.akkachat.NewMessage;
 import ru.dorofeev.sandbox.akkachat.UserActor;
 import scala.concurrent.duration.FiniteDuration;
 
@@ -27,12 +26,12 @@ public class ChatTest {
 
 		// when
 		ActorRef user1 = kit.user("user1");
-		user1.tell(new UserActor.InSubmitNewMessage("Hello!", conversation), noSender());
+		user1.tell(new UserActor.SubmitNewMessageCmd("Hello!", conversation), noSender());
 
 		// then
 		kit.listener("user1").expectNoMsg(TIMEOUT);
-		kit.listener("user2").expectMsgEquals(TIMEOUT, new NewMessage(user1, "Hello!"));
-		kit.listener("user3").expectMsgEquals(TIMEOUT, new NewMessage(user1, "Hello!"));
+		kit.listener("user2").expectMsgEquals(TIMEOUT, new UserActor.NewMessageMsg(user1, "Hello!"));
+		kit.listener("user3").expectMsgEquals(TIMEOUT, new UserActor.NewMessageMsg(user1, "Hello!"));
 	}
 
 }
