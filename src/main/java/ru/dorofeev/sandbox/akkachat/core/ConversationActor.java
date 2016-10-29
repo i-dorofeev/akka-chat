@@ -1,4 +1,4 @@
-package ru.dorofeev.sandbox.akkachat;
+package ru.dorofeev.sandbox.akkachat.core;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
@@ -34,7 +34,7 @@ public class ConversationActor extends UntypedActor {
 	private void onNewMessage(UserActor.NewMessageMsg msg) {
 		if (!users.contains(getSender()))
 			return;
-		
+
 		users.stream()
 			.filter(u -> !u.equals(msg.sender))
 			.forEach(u -> u.tell(msg, getSelf()));

@@ -1,4 +1,4 @@
-package ru.dorofeev.sandbox.akkachat;
+package ru.dorofeev.sandbox.akkachat.core;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;

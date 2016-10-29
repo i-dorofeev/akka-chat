@@ -5,7 +5,7 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 import org.junit.Before;
 import org.junit.Test;
-import ru.dorofeev.sandbox.akkachat.UserActor;
+import ru.dorofeev.sandbox.akkachat.core.UserActor;
 import scala.concurrent.duration.FiniteDuration;
 
 import static akka.actor.ActorRef.noSender;

@@ -3,8 +3,8 @@ package ru.dorofeev.sandbox.akkachat.tests;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.testkit.JavaTestKit;
-import ru.dorofeev.sandbox.akkachat.ConversationActor;
-import ru.dorofeev.sandbox.akkachat.UserActor;
+import ru.dorofeev.sandbox.akkachat.core.ConversationActor;
+import ru.dorofeev.sandbox.akkachat.core.UserActor;
 import scala.concurrent.duration.FiniteDuration;
 
 import java.util.HashMap;
