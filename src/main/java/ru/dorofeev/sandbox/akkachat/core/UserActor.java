@@ -104,6 +104,14 @@ public class UserActor extends UntypedActor {
 			this.message = message;
 		}
 
+		public ActorRef getSender() {
+			return sender;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
 		@Override
 		public boolean equals(Object o) {
 			if (this == o) return true;
