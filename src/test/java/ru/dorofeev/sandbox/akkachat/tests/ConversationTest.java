@@ -9,7 +9,7 @@ import scala.concurrent.duration.FiniteDuration;
 import static akka.actor.ActorRef.noSender;
 import static akka.testkit.JavaTestKit.duration;
 
-public class ChatTest {
+public class ConversationTest {
 
 	private static final FiniteDuration TIMEOUT = duration("0.1 second");
 
