@@ -3,6 +3,7 @@ package ru.dorofeev.sandbox.akkachat.core;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,7 +45,7 @@ public class ConversationActor extends UntypedActor {
 	/**
 	 * Adds a user to the conversation.
 	 */
-	public static class AddUserCmd {
+	public static class AddUserCmd implements Serializable {
 		final ActorRef user;
 
 		/**

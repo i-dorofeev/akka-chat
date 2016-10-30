@@ -3,6 +3,7 @@ package ru.dorofeev.sandbox.akkachat.core;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public class UserActor extends UntypedActor {
 	/**
 	 * Submits new message to the specified conversation.
 	 */
-	public static class SubmitNewMessageCmd {
+	public static class SubmitNewMessageCmd implements Serializable {
 
 		final String message;
 		final ActorRef targetConversation;
@@ -68,7 +69,7 @@ public class UserActor extends UntypedActor {
 	 * Adds a listener to receive notifications about the incoming messages
 	 * for this user.
 	 */
-	public static class AddListenerCmd {
+	public static class AddListenerCmd implements Serializable {
 
 		final ActorRef listenerRef;
 
@@ -88,7 +89,7 @@ public class UserActor extends UntypedActor {
 	 *
 	 * User may receive new messages as well as send them.
 	 */
-	public static class NewMessageMsg {
+	public static class NewMessageMsg implements Serializable {
 
 		final ActorRef sender;
 		private final String message;

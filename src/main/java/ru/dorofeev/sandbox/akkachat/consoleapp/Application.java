@@ -1,16 +1,22 @@
 package ru.dorofeev.sandbox.akkachat.consoleapp;
 
 import akka.actor.ActorRef;
+import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.pattern.Patterns;
+import akka.util.Timeout;
 import ru.dorofeev.sandbox.akkachat.core.ConversationActor;
 import ru.dorofeev.sandbox.akkachat.core.UserActor;
+import scala.concurrent.Await;
+import scala.concurrent.Future;
+import scala.concurrent.duration.Duration;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static akka.actor.ActorRef.noSender;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 class Application {
 
@@ -49,6 +55,7 @@ class Application {
 		ActorRef conversationRef = conversations.get(name);
 		if (conversationRef == null) {
 			conversationRef = actorSystem.actorOf(Props.create(ConversationActor.class), name);
+			System.out.println(conversationRef.path());
 			conversations.put(name, conversationRef);
 		}
 
@@ -71,5 +78,19 @@ class Application {
 
 	private String getCurrentConversationName() {
 		return "c[" + (currentConversation != null ? currentConversation.path().name() : "-") + "]";
+	}
+
+	void switchConversation(String host, String port, String name) {
+		ActorSelection convSelection = actorSystem.actorSelection("akka.tcp://system@" + host + ":" + port + "/user/" + name);
+		System.out.println(convSelection.path());
+		Future<ActorRef> actorRefFuture = convSelection.resolveOne(new Timeout(2, SECONDS));
+
+		try {
+			currentConversation = Await.result(actorRefFuture, Duration.apply(2, SECONDS));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		onStateChanged();
 	}
 }
